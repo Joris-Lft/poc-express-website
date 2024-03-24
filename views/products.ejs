@@ -1,0 +1,71 @@
+<!-- views/api-data.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/products.css" />
+    <title>Products</title>
+  </head>
+  <body>
+    <h2>Liste des produits</h2>
+    <a href="/">Retour</a>
+    <!-- Ajoutez une liste déroulante pour sélectionner la catégorie -->
+    <label for="category">Filtrer par catégorie :</label>
+    <select id="category" name="category">
+      <option value="">Toutes les catégories</option>
+      <% [...new Set(apiData.products.map(product =>
+      product.category))].map(category => { %>
+      <option value="<%= category %>"><%= category %></option>
+      <% }); %>
+    </select>
+
+    <table id="product-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% apiData.products.forEach(product => { %>
+        <tr>
+          <td>
+            <img src="<%= product.thumbnail %>" alt="Product Thumbnail" />
+          </td>
+          <td><%= product.title %></td>
+          <td><%= product.description %></td>
+          <td><%= product.price %>€</td>
+          <td><%= product.category %></td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <script>
+      // Fonction pour filtrer les produits par catégorie
+      const filterProducts = () => {
+        const category = document.getElementById("category").value;
+        const rows = document.querySelectorAll("#product-table tbody tr");
+
+        rows.forEach((row) => {
+          const categoryCell = row.querySelector("td:nth-child(5)"); // Cellule contenant la catégorie
+          if (category === "" || category === categoryCell.textContent) {
+            row.style.display = "table-row";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      };
+
+      // Ajoutez un événement onchange à la liste déroulante pour filtrer les produits lorsque la catégorie est sélectionnée
+      document
+        .getElementById("category")
+        .addEventListener("change", filterProducts);
+
+      // Appelez la fonction de filtrage au chargement de la page pour afficher tous les produits initialement
+      filterProducts();
+    </script>
+  </body>
+</html>
