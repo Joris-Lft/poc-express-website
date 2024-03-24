@@ -8,6 +8,9 @@ td {
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
+td:nth-child(5) {
+  display: none;
+}
 th {
   background-color: #f2f2f2;
 }
