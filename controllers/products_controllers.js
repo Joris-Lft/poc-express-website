@@ -1,17 +1,14 @@
 const getAllProducts = async (req, res) => {
   try {
-    // Faire une requête GET à l'API
-    const response = await fetch("https://dummyjson.com/products"); // Remplacez ceci par l'URL réelle de votre API
+    // API GET request
+    const response = await fetch("https://dummyjson.com/products");
     const data = await response.json();
 
-    // Rendre une vue avec les données reçues de l'API
-    res.render("products", { apiData: data });
+    // render a view with data loaded
+    res.render("test-products-list", { apiData: data });
   } catch (error) {
-    console.error(
-      "Erreur lors de la récupération des données de l'API:",
-      error
-    );
-    res.status(500).send("Erreur lors de la récupération des données de l'API");
+    console.error("Error during request:", error);
+    res.status(500).send("Error during request");
   }
 };
 

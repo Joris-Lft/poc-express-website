@@ -4,12 +4,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Express Static Site</title>
+    <title>Home</title>
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <h1>Welcome to my Express Static Site!</h1>
-    <p>This is a static site generated using Express.js and EJS templating.</p>
-    <a href="/products">Voir les Produits</a>
+    <div class="container">
+      <h1>Welcome to my idea box for proofs of concepts or small projects</h1>
+      <p>
+        This is a static site generated using Express.js and EJS templating.
+      </p>
+      <nav>
+        <a href="/test-products-list">See a products list with filters</a>
+        <a href="/bank-loan-rate-calculator">Bank loan rate calculator</a>
+      </nav>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>
+        This site was created by
+        <a href="https://github.com/Joris-Lft" target="_blank">Joris-Lft</a>
+        with ❤️
+      </p>
+    </footer>
   </body>
 </html>

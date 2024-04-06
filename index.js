@@ -1,25 +1,28 @@
 const express = require("express");
 const app = express();
-const port = 3000; // Port sur lequel votre serveur écoutera
+const port = 3000;
 
 // import routes by domain
-const productsRoutes = require("./routes/products");
+const productsRoutes = require("./routes/test-products-list");
+const bankLoanRateCalculatorRoutes = require("./routes/bank-loan-rate-calculator");
 
 // Définissez le moteur de templating EJS
 app.set("view engine", "ejs");
 
-// Définissez le répertoire des fichiers statiques (comme CSS, JS, images, etc.)
+// Set directory for static files (like CSS, JS, images, etc.)
 app.use(express.static("public"));
 
-// Définissez les routes
+// Define routes
 app.get("/", (req, res) => {
-  // Renvoie la vue index.ejs
+  // render index.ejs
   res.render("index");
 });
+// other routes
+// the name of the route file must be the same as the url
+app.use("/test-products-list", productsRoutes);
+app.use("/bank-loan-rate-calculator", bankLoanRateCalculatorRoutes);
 
-app.use("/products", productsRoutes);
-
-// Démarrez le serveur
+// Start server
 app.listen(port, () => {
-  console.log(`Le serveur est démarré sur le port ${port}`);
+  console.log(`Server started on port ${port}`);
 });

@@ -1,0 +1,75 @@
+<!-- views/api-data.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/test-products-list.css" />
+    <title>Products list</title>
+  </head>
+  <body>
+    <div class="container">
+      <h2>List of dummy products</h2>
+      <a href="/" class="back-button">Back to homepage</a>
+      <!-- Add a dropdown to select the category -->
+      <div class="filter-section">
+        <label for="category">Filter by category :</label>
+        <select id="category" name="category">
+          <option value="">All categories</option>
+          <% [...new Set(apiData.products.map(product =>
+          product.category))].map(category => { %>
+          <option value="<%= category %>"><%= category %></option>
+          <% }); %>
+        </select>
+      </div>
+
+      <table id="product-table">
+        <thead>
+          <tr>
+            <th>Thumbnail</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% apiData.products.forEach(product => { %>
+          <tr>
+            <td class="thumbnail-cell">
+              <img src="<%= product.thumbnail %>" alt="Product Thumbnail" />
+            </td>
+            <td><%= product.title %></td>
+            <td><%= product.description %></td>
+            <td><%= product.price %>€</td>
+            <td><%= product.category %></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+    <script>
+      // Function to filter the list
+      const filterProducts = () => {
+        const category = document.getElementById("category").value;
+        const rows = document.querySelectorAll("#product-table tbody tr");
+
+        rows.forEach((row) => {
+          const categoryCell = row.querySelector("td:nth-child(5)"); // Masked cell containing the category
+          if (category === "" || category === categoryCell.textContent) {
+            row.style.display = "table-row";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      };
+
+      // Add an onchange event to the dropdown to filter products when the category is selected
+      document
+        .getElementById("category")
+        .addEventListener("change", filterProducts);
+
+      // Call the filter function on page load to show all products initially
+      filterProducts();
+    </script>
+  </body>
+</html>
